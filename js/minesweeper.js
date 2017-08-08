@@ -95,12 +95,14 @@ function gameOver(){
         smileyUp();
         smiley.classList.add("face_lose");
         alert('Oops, you hit a mine, game over');
+        revealAll();
     }
     else{
         smileyUp();
         smiley.classList.add("face_win");
         game.win=false;
         alert('awesome!');
+        revealAll();
     }
 
 }
@@ -233,6 +235,23 @@ function reveal(row,col,r,c){
          }
     
 }
+function revealAll(){
+    for(var i=0;i<game.rows;i++){
+        for(var j=0;j<game.columns;j++){
+            if(board[i][j].element.classList.contains("hidden")){
+                if(board[i][j].isMine){
+                    board[i][j].element.classList.remove("hidden");
+                    board[i][j].element.classList.add("mine");
+                }
+                else{
+                    board[i][j].element.classList.remove("hidden");
+                    board[i][j].element.classList.add("tile_"+board[i][j].count);
+                }
+            }
+        } 
+    }
+}
+
 function check(){
     var count = document.getElementsByClassName('hidden').length;
     console.log(count);
